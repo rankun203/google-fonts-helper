@@ -207,7 +207,7 @@ export function parseFontsFromCss (content: string, fontsPath: string): FontInpu
     url: /url\s*\(\s*(?:'|")?\s*([^]*?)\s*(?:'|")?\s*\)\s*?/gi
   }
 
-  let i = 1
+  let is: Record<string, number> = {}
   let match1
 
   while ((match1 = re.face.exec(content)) !== null) {
@@ -224,6 +224,15 @@ export function parseFontsFromCss (content: string, fontsPath: string): FontInpu
       const ext = extname(urlPathname)
       if (ext.length < 2) { continue }
       const filename = basename(urlPathname, ext) || ''
+
+      // Assign i to each different family and weight
+      const i = is[`${family}${weight}`];
+      if (i === undefined) {
+        is[`${family}${weight}`] = 1;
+      } else {
+        is[`${family}${weight}`] = i + 1;
+      }
+
       const newFilename = formatFontFileName('{_family}-{weight}-{i}.{ext}', {
         comment: comment || '',
         family,
@@ -231,7 +240,7 @@ export function parseFontsFromCss (content: string, fontsPath: string): FontInpu
         filename,
         _family: family.replace(/\s+/g, '_'),
         ext: ext.replace(/^\./, '') || '',
-        i: String(i++)
+        i: String(i)
       }).replace(/\.$/, '')
 
       fonts.push({

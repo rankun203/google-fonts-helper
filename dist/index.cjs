@@ -155,7 +155,7 @@ function parseFontsFromCss(content, fontsPath) {
     weight: /font-weight\s*:\s*([^;]*?)\s*;/i,
     url: /url\s*\(\s*(?:'|")?\s*([^]*?)\s*(?:'|")?\s*\)\s*?/gi
   };
-  let i = 1;
+  let is = {};
   let match1;
   while ((match1 = re.face.exec(content)) !== null) {
     const [fontface, comment] = match1;
@@ -172,6 +172,12 @@ function parseFontsFromCss(content, fontsPath) {
         continue;
       }
       const filename = path.basename(urlPathname, ext) || "";
+      const i = is[`${family}${weight}`];
+      if (i === void 0) {
+        is[`${family}${weight}`] = 1;
+      } else {
+        is[`${family}${weight}`] = i + 1;
+      }
       const newFilename = formatFontFileName("{_family}-{weight}-{i}.{ext}", {
         comment: comment || "",
         family,
@@ -179,7 +185,7 @@ function parseFontsFromCss(content, fontsPath) {
         filename,
         _family: family.replace(/\s+/g, "_"),
         ext: ext.replace(/^\./, "") || "",
-        i: String(i++)
+        i: String(i)
       }).replace(/\.$/, "");
       fonts.push({
         family,
