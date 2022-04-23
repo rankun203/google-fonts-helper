@@ -7,7 +7,7 @@ interface Families {
     [family: string]: boolean | number | number[] | FamilyStyles;
 }
 interface FontInputOutput {
-    fontface: string;
+    family: string;
     weight: string;
     inputFont: string;
     outputFont: string;

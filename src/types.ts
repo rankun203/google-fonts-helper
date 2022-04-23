@@ -7,7 +7,7 @@ export interface Families {
 }
 
 export interface FontInputOutput {
-  fontface: string
+  family: string
   weight: string
   inputFont: string
   outputFont: string

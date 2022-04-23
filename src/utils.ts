@@ -235,7 +235,7 @@ export function parseFontsFromCss (content: string, fontsPath: string): FontInpu
       }).replace(/\.$/, '')
 
       fonts.push({
-        fontface,
+        family,
         weight,
         inputFont: url,
         outputFont: newFilename,
