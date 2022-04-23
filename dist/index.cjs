@@ -182,6 +182,8 @@ function parseFontsFromCss(content, fontsPath) {
         i: String(i++)
       }).replace(/\.$/, "");
       fonts.push({
+        fontface,
+        weight,
         inputFont: url,
         outputFont: newFilename,
         inputText: forReplace,
