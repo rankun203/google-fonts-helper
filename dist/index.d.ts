@@ -19,6 +19,7 @@ interface DownloadOptions {
     stylePath: string;
     fontsDir: string;
     fontsPath: string;
+    ttf?: boolean;
     headers?: HeadersInit;
 }
 interface GoogleFonts {
