@@ -226,11 +226,11 @@ export function parseFontsFromCss (content: string, fontsPath: string): FontInpu
       const filename = basename(urlPathname, ext) || ''
 
       // Assign i to each different family and weight
-      const i = is[`${family}${weight}`];
+      let i = is[`${family}${weight}`];
       if (i === undefined) {
-        is[`${family}${weight}`] = 1;
+        i = is[`${family}${weight}`] = 1;
       } else {
-        is[`${family}${weight}`] = i + 1;
+        i = is[`${family}${weight}`] = i + 1;
       }
 
       const newFilename = formatFontFileName('{_family}-{weight}-{i}.{ext}', {

@@ -172,11 +172,11 @@ function parseFontsFromCss(content, fontsPath) {
         continue;
       }
       const filename = path.basename(urlPathname, ext) || "";
-      const i = is[`${family}${weight}`];
+      let i = is[`${family}${weight}`];
       if (i === void 0) {
-        is[`${family}${weight}`] = 1;
+        i = is[`${family}${weight}`] = 1;
       } else {
-        is[`${family}${weight}`] = i + 1;
+        i = is[`${family}${weight}`] = i + 1;
       }
       const newFilename = formatFontFileName("{_family}-{weight}-{i}.{ext}", {
         comment: comment || "",
